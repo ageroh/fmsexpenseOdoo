@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>FORTE MARITIME SECURITY - EXPENSES</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <style type="text/css">
+
+.tg {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-mdm8{font-weight:bold;/*background-color:#fd6864;*/text-align:center;  font-size: large;}
+.tg .tg-e3zv{font-weight:bold;}
+.tg .tg-hgcj{font-weight:bold;text-align:center;   background-color: rgb(161, 161, 255);}
+.tg .tg-p97h{background-color:#303498;color:#efefef}
+.tg .tg-yilt{background-color:#00009b;color:#efefef}
+.fb {font-weight: bold;}
+
+input .in1RevTot , in1Rev, in2Rev{
+  padding: 8px;
+  border: solid 1px #898989;
+  transition: box-shadow 0.3s, border 0.3s;
+  width: 70px;
+}
+input:focus,
+input.focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+  padding: 2px;
+}
+input .armed { padding:5px;}
+  /*      .tg th, .tg td {
+            border: 0px;
+        }
+    */
+input .simpleInput {width:126px; padding:5px; }    
+
+</style>
+<script>
+    function check(elem) {
+        if (!elem.value.match(/\d$/)) {
+            alert('Write only DIGITS in format dd.dd (d = digit)');
+        }
+    }
+    $(function () {
+        $('.dateFormatField').datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+
+
+    $( document ).ready(function() {
+
+        // REVENUES
+        $('.in1Rev').on('input propertychange paste', function () {
+            var totalPoints = 0;
+            $('.in1Rev').each(function (i, n) {
+                if( $(this).val() != "")
+                    totalPoints += parseInt($(n).val(), 10);
+            });
+            $('.in1RevTot').val(totalPoints);
+
+            //$('.in1RevTot').val(totalPoints + parseInt($('.in1RevGuard').val(), 10) * parseInt($('.guardCnt').val()));
+
+            $('.Prof1').val($('.in1RevTot').val() - $('.out1ExpTot').val());
+
+        });
+
+        //$('.in2Rev').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    $('.in2Rev').each(function (i, n) {
+        //        if ($(this).val() != "")
+        //            totalPoints += parseInt($(n).val(), 10);
+        //    });
+        //    $('.in2RevTot').val(totalPoints + parseInt($('.in2RevGuard').val(), 10) * parseInt($('.guardCnt').val()));
+            
+
+        //    $('.Prof2').val($('.in2RevTot').val() - $('.out2ExpTot').val());
+        //});
+
+        //$('.in3Rev').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    $('.in3Rev').each(function (i, n) {
+        //        if ($(this).val() != "")
+        //            totalPoints += parseInt($(n).val(), 10);
+        //    });
+        //    $('.in3RevTot').val(totalPoints + parseInt($('.in3RevGuard').val(), 10) * parseInt($('.guardCnt').val()));
+
+
+        //    $('.Prof3').val($('.in3RevTot').val() - $('.out3ExpTot').val());
+        //});
+
+
+
+        //// Guard Revenues
+        //$('.in1RevGuard').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    if ($(this).val() != "") {
+        //        $('.in1Rev').each(function (i, n) {
+        //            if ($(this).val() != "")
+        //                totalPoints += parseInt($(n).val(), 10);
+        //        });
+        //        $('.in1RevTot').val(totalPoints + parseInt($(this).val(), 10) * parseInt($('.guardCnt').val()));
+        //    }
+        //    $('.Prof1').val($('.in1RevTot').val() - $('.out1ExpTot').val());
+
+        //});
+
+        //$('.in2RevGuard').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    if ($(this).val() != "") {
+        //        $('.in2Rev').each(function (i, n) {
+        //            if ($(this).val() != "")
+        //                totalPoints += parseInt($(n).val(), 10);
+        //        });
+        //        $('.in2RevTot').val(totalPoints + parseInt($(this).val(), 10) * parseInt($('.guardCnt').val()));
+        //    }
+        //    $('.Prof2').val($('.in2RevTot').val() - $('.out2ExpTot').val());
+        //});
+
+        //$('.in3RevGuard').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    if ($(this).val() != "") {
+        //        $('.in3Rev').each(function (i, n) {
+        //            if ($(this).val() != "")
+        //                totalPoints += parseInt($(n).val(), 10);
+        //        });
+        //        $('.in3RevTot').val(totalPoints + parseInt($(this).val(), 10) * parseInt($('.guardCnt').val()));
+        //    }
+        //    $('.Prof2').val($('.in3RevTot').val() - $('.out3ExpTot').val());
+        //});
+
+
+        // guard counter
+        //$('.guardCnt').on('input propertychange paste', function () {
+        //    $('.in1RevGuard').trigger("propertychange");
+        //    $('.in2RevGuard').trigger("propertychange");
+        //    $('.in3RevGuard').trigger("propertychange");
+        //});
+
+
+
+
+        // EXPENSES
+        $('.out1Exp').on('input propertychange paste', function () {
+            var totalPoints = 0;
+            $('.out1Exp').each(function (i, n) {
+                if ($(this).val() != "")
+                    totalPoints += parseInt($(n).val(), 10);
+            });
+            $('.out1ExpTot').val(totalPoints);
+
+            $('.Prof1').val($('.in1RevTot').val() - $('.out1ExpTot').val());
+        });
+
+        //$('.out2Exp').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    $('.out2Exp').each(function (i, n) {
+        //        if ($(this).val() != "")
+        //            totalPoints += parseInt($(n).val(), 10);
+        //    });
+        //    $('.out2ExpTot').val(totalPoints);
+
+        //    $('.Prof2').val($('.in2RevTot').val() - $('.out2ExpTot').val());
+        //});
+
+        //$('.out3Exp').on('input propertychange paste', function () {
+        //    var totalPoints = 0;
+        //    $('.out3Exp').each(function (i, n) {
+        //        if ($(this).val() != "")
+        //            totalPoints += parseInt($(n).val(), 10);
+        //    });
+        //    $('.out3ExpTot').val(totalPoints);
+
+        //    $('.Prof3').val($('.in3RevTot').val() - $('.out3ExpTot').val());
+        //});
+
+
+
+
+
+    });
+    
+
+</script>
+
+<button type="button">NEW</button>
+<button type="button">EDIT</button>
+<button type="button">DELETE</button>
+    <br />
+
+<table class="tg">
+  <tr>
+    <th class="tg-hgcj"  colspan="5">FORTE MARITIME SECURITY - Expenses Per Project</th>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="5"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">CLIENT </td>
+    <td class="tg-031e">
+        <select name="carlist" >
+          <option value="">- Please Select -</option>
+          <option value="thenam">Thenamaris Ltd</option>
+          <option value="cop">Copelouzos Ltd</option>
+          <option value="kykl">Kyklades Ltd</option>
+          <option value="cha">Chandris Ships</option>
+        </select>
+    </td>
+    <td class="tg-031e">PROJECT NUMBER:</td>
+    <td class="tg-031e" colspan="2"><input pattern="\d\" maxlength=5 size=5 onchange="check(this)"/></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">VESSEL NAME </td>
+    <td class="tg-031e"><input type="text" /></td>
+    <td class="tg-031e">INVOICE No</td>
+    <td class="tg-031e" colspan="2"><input pattern="\d\" maxlength=10 size=10 onchange="check(this)"/></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">GUARD TL</td>
+    <td class="tg-031e">
+        <input type="checkbox" class="armed" name="armed" value="armed" checked />
+    </td>
+    <td class="tg-031e">CREDIT NOTE No</td>
+    <td class="tg-031e" colspan="2"><input type="text" id="myVariable" name="myVariable" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">GUARD</td>
+    <td class="tg-031e"><input pattern="\w\" class="guardCnt" /></td>
+    <td class="tg-031e"></td>
+    <td class="tg-031e"><b>FROM</b></td>
+    <td class="tg-031e"><b>TO</b></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">GUARD</td>
+    <td class="tg-031e"><input pattern="\w\" class="invNum" /></td>
+    <td class="tg-031e">Place Embark / Disembark</td>
+    <td class="tg-031e">
+      <select name="carlist" >
+          <option value="">- Please Select -</option>
+          <option value="thenam">DJIBOUTI</option>
+          <option value="18n">18 NORTH</option>
+          <option value="suez">SUEZ</option>
+          <option value="19n">19 NORTH</option>
+          <option value="GALLE">GALLE</option>
+          <option value="FUJAIRAH">FUJAIRAH</option>
+          <option value="DURBAN">DURBAN</option>
+          <option value="Richard">RICHARDS BAY</option>
+          <option value="MORONI">MORONI</option>
+          <option value="MALDIVES">MALDIVES</option>
+          <option value="OTHER">OTHER</option>
+       </select>
+    </td>
+    <td class="tg-031e">
+                <select name="carlist" >
+          <option value="">- Please Select -</option>
+          <option value="thenam">DJIBOUTI</option>
+          <option value="18n">18 NORTH</option>
+          <option value="suez">SUEZ</option>
+          <option value="19n">19 NORTH</option>
+          <option value="GALLE">GALLE</option>
+          <option value="FUJAIRAH">FUJAIRAH</option>
+          <option value="DURBAN">DURBAN</option>
+          <option value="Richard">RICHARDS BAY</option>
+          <option value="MORONI">MORONI</option>
+          <option value="MALDIVES">MALDIVES</option>
+          <option value="OTHER">OTHER</option>
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-031e">GUARD</td>
+    <td class="tg-031e"><input pattern="\w\" class="invNum" /></td>
+    <td class="tg-031e">Duration Of Trip</td>
+    <td class="tg-031e"><input type="text" id="Text1" class="dateFormatField" value="10/06/2015" /></td>
+    <td class="tg-031e"><input type="text" id="Text2" class="dateFormatField" value="16/06/2015" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e"></td>
+    <td class="tg-031e"></td>
+    <td class="tg-031e">MOBILIZATION / DEMOBILIZATION</td>
+    <td class="tg-031e"><input type="text" id="Text5" class="dateFormatField" value="11/06/2015" /></td>
+    <td class="tg-031e"><input type="text" id="Text6" class="dateFormatField" value="15/06/2015" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="6"></td>
+  </tr>
+
+
+
+  <tr>
+    <td class="tg-031e fb" colspan="2">TRANSACTION DETAILS</td>
+    
+    <td class="tg-031e fb">AMOUNT PAID</td>
+    <td class="tg-031e fb">COMPANY / AGENTS</td>    
+    <td class="tg-031e fb">DATE OF <br />FUNDS TRANSFER</td>
+  </tr>
+  <tr>
+    <td class="tg-e3zv" colspan="2">REVENUES per GuardCon $</td>
+    <td class="tg-031e"><input pattern="\d\" class="in1Rev" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text7" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">INVOICE AMOUNT</td>
+    <td class="tg-031e"><input pattern="\d\" class="in1Rev" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text8" class="dateFormatField" /></td>
+  </tr>
+   <tr>
+    <td class="tg-031e" colspan="2">CREDIT NOTE AMOUNT</td>
+    <td class="tg-031e"><input pattern="\d\" class="in1Rev" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text"/></td>
+    <td class="tg-031e"><input type="text" id="Text3" class="dateFormatField" /></td>
+  </tr>
+
+
+    
+<!--  <tr>
+    <td class="tg-031e" colspan="2">OTHER INCOME</td>
+    <td class="tg-031e"><input pattern="\d\" class="in1Rev" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input pattern="\d\" class="in2Rev" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" id="Text9" class="dateFormatField" /></td>
+  </tr>-->
+  <tr>
+    <td class="tg-031e" colspan="6"> </td>
+  </tr>
+  <tr style="  background-color: rgb(158, 252, 158);">
+    <td class="tg-e3zv"colspan="2">TOTAL REVENUES</td>
+    
+    <td class="tg-031e"><input pattern="\d\" class="in1RevTot" maxlength=5 size=5 onchange="check(this)" readonly/></td>
+    <td class="tg-031e"></td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="6"> </td>
+  </tr>
+  <tr>
+    <td class="tg-mdm8" colspan="6">EXPENSES</td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">DEPART TICKETS</td>
+    <td class="tg-031e"><input pattern="\d\" class="out1Exp" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text11" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">Hotel Embark</td>
+    <td class="tg-031e"><input pattern="\d\"class="out1Exp" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text12" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">EMBARKATION</td>
+    <td class="tg-031e"><input pattern="\d\"class="out1Exp" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput""/></td>
+    <td class="tg-031e"><input type="text" id="Text13" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">MOBILIZATION</td>
+    <td class="tg-031e"><input pattern="\d\" class="out1Exp"  maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text14" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e"colspan="2">DEMOBILIZATION</td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1Exp"  maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text15" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">AGENT DISEMBARKATION</td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1Exp"   maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text16" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">HOTEL DISEMBARKATION</td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1Exp"  maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text17" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">RETURN TICKETS</td>
+    <td class="tg-031e"><input pattern="\d\"    class="out1Exp" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text18" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">INSURANCE</td>
+    <td class="tg-031e"><input pattern="\d\"class="out1Exp" maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text19" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">GUARDS COST</td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1Exp"  maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text20" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">ARMS RENTAL </td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1Exp"   maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text21" class="dateFormatField" /></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="2">COMMISSION</td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1Exp"  maxlength=5 size=5 onchange="check(this)"/></td>
+    <td class="tg-031e"><input type="text" class="simpleInput"/></td>
+    <td class="tg-031e"><input type="text" id="Text22" class="dateFormatField" /></td>
+  </tr>
+  <tr style="background-color: rgb(255, 184, 184);">
+    <td class="tg-e3zv" colspan="2">TOTAL EXPENSES</td>
+    <td class="tg-031e"><input pattern="\d\"  class="out1ExpTot"   maxlength=5 size=5 onchange="check(this)" readonly/></td>
+    <td class="tg-031e"></td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e" colspan="6"></td>
+  </tr>
+  <tr>
+    <td class="tg-e3zv" colspan="2">PROFIT </td>
+    <td class="tg-031e"><input pattern="\d\" class="Prof1"  maxlength=5 size=5 onchange="check(this)" readonly/></td>
+    <td class="tg-031e"></td>
+    <td class="tg-031e"></td>
+  </tr>
+</table>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
