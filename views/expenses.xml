@@ -10,33 +10,206 @@
             <field name="model">fmsexpensess.expense</field>
             <field name="arch" type="xml">
                 <form string="Expense Form">
-                    <sheet>
-                        <group>
-                            <field name="client_id"/>
-                            <field name="projectNumber"/>
-                        </group>
-                        <group>
-                            <field name="guard_id_one"/>
-                            <field name="invoiceNumber"/>
-                        </group>
 
-                        <group>
-                            <field name="tripStartDate"/>
-                            <field name="tripEndDate"/>
-                        </group>
+                  <sheet>
+                    <group> 
+                      <group>
+                        <field name="client_id"/>
+                        <field name="vesselName"/>
+                        <field name="guard_id_one"/>
+                        <field name="guard_id_two"/>
+                        <field name="guard_id_three"/>
+                        <field name="guard_id_forth"/>
+                      </group>
+                      <group>
+                        <field name="projectNumber"/>
+                        <field name="invoiceNumber"/>
+                        <field name="creditNoteNo"/>
+                        <group style="font-size:13px;">
+                          <group string="Duration of Trip" colspan="2" style="padding: 0px; margin: 0px;">
+                            <field name="tripStartDate" nolabel="1"/>
+                            <field name="tripEndDate" nolabel="1"/>
+                          </group>
+                          <group string="Embark / Disembark" colspan="2" style="padding: 0px; margin: 0px;">
+                            <field name="placeEmbark" nolabel="1"/>
+                            <field name="placeDisembark" nolabel="1"/>
+                          </group>
+                          <group string="Mobilization / Demobilization" colspan="2" style="padding: 0px; margin: 0px;">
+                            <field name="mobilizationDate" nolabel="1"/>
+                            <field name="demobilizationDate" nolabel="1"/>
+                          </group>
+                        </group>                      
+                      </group>
+                    </group>
+                  </sheet>
+ 
+                  <sheet>
+                    
+                      <table>
+                        <tr>
+                          <td>Transaction Details</td>
+                          <td>Amount Paid</td>
+                          <td>Company / Agents</td>
+                          <td>Transfer Date</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Revenues Per Guard
+                          </td>
+                          <td>
+                            <field name="revenuesPerGaurdAmount"/>
+                          </td>
+                          <td>
+                            <field name="revenuesPerGaurdCompanyAgents" nolabel="1"/>
+                          </td>
+                          <td>
+                            <field name="revenuesPerGaurdTransferDate" nolabel="1"/>
+                          </td>
+                        </tr>
+                          <td class="oe_form_group_cell_label">
+                            Invoice Amount
+                          </td>
+                          <td>
+                            <field name="invoiceAmount"/>
+                          </td>
+                          <td>
+                            <field name="invoiceCompanyAgents" nolabel="1"/>
+                          </td>
+                          <td>
+                            <field name="invoiceTrasferDate" nolabel="1"/>
+                          </td>
+                        <tr>
+                        </tr>
+                          <td class="oe_form_group_cell_label">
+                            Credit Note Amount
+                          </td>
+                          <td>
+                            <field name="creditNoteAmount" />
+                          </td>
+                          <td>
+                            <field name="creditNoteCompanyAgents" nolabel="1"/>
+                          </td>
+                          <td>
+                            <field name="creditNoteTransferDate" nolabel="1"/>
+                          </td>
+                        <tr>
+                        </tr>
+                        <tr>
+                          <td class="oe_form_group_cell_label">Total Revenues</td>
+                          <td><field name="totalRevenuesAmount"/></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </table>
+                  </sheet>
 
-                        <group>
-                            <field name="mobilizationDate"/>
-                            <field name="demobilizationDate"/>
-                        </group>
+                  <sheet>
+                    <table>
+                      <tr>
+                        <td class="tg-mdm8" colspan="6">EXPENSES</td>
+                      </tr>
 
-                        <group>
-                            <field name="vesselName"/>
-                        </group>
-                    </sheet>
+                      <tr>
+                        <td class="tg-031e" colspan="2">DEPART TICKETS</td>
+                        <td><field name="expDepartTicketsAmount"/></td>
+                        <td><field name="expDepartTicketsCompanyAgents"/></td>
+                        <td><field name="expDepartTicketsTransferDate"/></td>
+                      </tr>
+
+                      <tr>
+                        <td class="tg-031e" colspan="2">Hotel Embark</td>
+                        <td><field name="expHotelEmbarkAmount"/></td>
+                        <td><field name="expHotelEmbarkCompanyAgents"/></td>
+                        <td><field name="expHoterEmbarkTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">EMBARKATION</td>
+                        <td><field name="expEmbarkationAmount"/></td>
+                        <td><field name="expEmbarkationCompanyAgents"/></td>
+                        <td><field name="expEmbarkationTransferDate"/></td>
+                      </tr>
+
+                      <tr>
+                        <td class="tg-031e" colspan="2">MOBILIZATION</td>
+                        <td><field name="expMobilizationAmount"/></td>
+                        <td><field name="expMobilizationCompanyAgents"/></td>
+                        <td><field name="expMobilizationTransferDate"/></td>
+                      </tr>
+
+                      <tr>
+                        <td class="tg-031e" colspan="2">DEMOBILIZATION</td>
+                        <td><field name="expDemobilizationAmount"/></td>
+                        <td><field name="expDemobilizationCompanyAgents"/></td>
+                        <td><field name="expDemobilizationTransferDate"/></td>
+                      </tr>
+
+
+                      <tr>
+                        <td class="tg-031e" colspan="2">AGENT DISEMBARKATION</td>
+                        <td><field name="expAgentDisembarkAmount"/></td>
+                        <td><field name="expAgentDisembarkCompanyAgents"/></td>
+                        <td><field name="expAgentDisembarkTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">HOTEL DISEMBARKATION</td>
+                        <td><field name="expHotelDisembarkAmount"/></td>
+                        <td><field name="expHotelDisembarkCompanyAgents"/></td>
+                        <td><field name="expHotelDisembarkTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">RETURN TICKETS</td>
+                        <td><field name="expReturnTicketsAmount"/></td>
+                        <td><field name="expReturnTicketsCompanyAgents"/></td>
+                        <td><field name="expReturnTicketsTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">INSURANCE</td>
+                        <td><field name="expInsuranceAmount"/></td>
+                        <td><field name="expInsuranceCompanyAgents"/></td>
+                        <td><field name="expInsuranceTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">GUARDS COST</td>
+                        <td><field name="expGuardsCostAmount"/></td>
+                        <td><field name="expGuardsCostCompanyAgents"/></td>
+                        <td><field name="expGuardsCostTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">ARMS RENTAL </td>
+                        <td><field name="expArmsRentalCostAmount"/></td>
+                        <td><field name="expArmsRentalCompanyAgents"/></td>
+                        <td><field name="expArmsRentalTransferDate"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="2">COMMISSION</td>
+                        <td><field name="expCommisionCostAmount"/></td>
+                        <td><field name="expCommisionCompanyAgents"/></td>
+                        <td><field name="expCommisionTransferDate"/></td>
+                      </tr>
+                      <tr style="background-color: rgb(255, 184, 184);">
+                        <td class="tg-e3zv" colspan="2">TOTAL EXPENSES</td>
+                        <td><field name="expTotalExpenses"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e" colspan="6"></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-e3zv" colspan="2">PROFIT </td>
+                        <td><field name="totalProfit"/></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <!--  -->
+                    </table>
+                  </sheet>
+
                 </form>
             </field>
         </record>
+
+
+
 
         <!-- window action -->
         <!--

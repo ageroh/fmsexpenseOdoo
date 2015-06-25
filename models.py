@@ -64,59 +64,59 @@ class expense(models.Model):
 
 
 	#Expenses 
-	expDepartTicketsAmount  = fields.Float(digits=(10,2), string="")
-	expDepartTicketsCompanyAgents = fields.Char(string="")
-	expDepartTicketsTransferDate = fields.Date(string="")
+	expDepartTicketsAmount  = fields.Float(digits=(10,2), string="expDepartTicketsAmount")
+	expDepartTicketsCompanyAgents = fields.Char(string="expDepartTicketsCompanyAgents")
+	expDepartTicketsTransferDate = fields.Date(string="expDepartTicketsTransferDate")
 
-	expHotelEmbarkAmount = fields.Float(digits=(10,2), string="")
-	expHotelEmbarkCompanyAgents = fields.Char(string="")
-	expHoterEmbarkTransferDate = fields.Date(string="")
+	expHotelEmbarkAmount = fields.Float(digits=(10,2), string="expHotelEmbarkAmount")
+	expHotelEmbarkCompanyAgents = fields.Char(string="expHotelEmbarkCompanyAgents")
+	expHoterEmbarkTransferDate = fields.Date(string="expHoterEmbarkTransferDate")
 
-	expEmbarkationAmount = fields.Float(digits=(10,2), string="")
-	expEmbarkationCompanyAgents = fields.Char(string="")
-	expEmbarkationTransferDate = fields.Date(string="")
+	expEmbarkationAmount = fields.Float(digits=(10,2), string="expEmbarkationAmount")
+	expEmbarkationCompanyAgents = fields.Char(string="expEmbarkationCompanyAgents")
+	expEmbarkationTransferDate = fields.Date(string="expEmbarkationTransferDate")
 
-	expMobilizationAmount = fields.Float(digits=(10,2), string="")
-	expMobilizationCompanyAgents = fields.Char(string="")
-	expMobilizationTransferDate = fields.Date(string="")
+	expMobilizationAmount = fields.Float(digits=(10,2), string="expMobilizationAmount")
+	expMobilizationCompanyAgents = fields.Char(string="expMobilizationCompanyAgents")
+	expMobilizationTransferDate = fields.Date(string="expMobilizationTransferDate")
 
-	expDemobilizationAmount = fields.Float(digits=(10,2), string="")
-	expDemobilizationCompanyAgents = fields.Char(string="")
-	expDemobilizationTransferDate = fields.Date(string="")
+	expDemobilizationAmount = fields.Float(digits=(10,2), string="expDemobilizationAmount")
+	expDemobilizationCompanyAgents = fields.Char(string="expDemobilizationCompanyAgents")
+	expDemobilizationTransferDate = fields.Date(string="expDemobilizationTransferDate")
 
-	expAgentDisembarkAmount = fields.Float(digits=(10,2), string="")
-	expAgentDisembarkCompanyAgents = fields.Char(string="")
-	expAgentDisembarkTransferDate = fields.Date(string="")
+	expAgentDisembarkAmount = fields.Float(digits=(10,2), string="expAgentDisembarkAmount")
+	expAgentDisembarkCompanyAgents = fields.Char(string="expAgentDisembarkCompanyAgents")
+	expAgentDisembarkTransferDate = fields.Date(string="expAgentDisembarkTransferDate")
 
-	expHotelDisembarkAmount = fields.Float(digits=(10,2), string="")
-	expHotelDisembarkCompanyAgents = fields.Char(string="")
-	expHotelDisembarkTransferDate = fields.Date(string="")
+	expHotelDisembarkAmount = fields.Float(digits=(10,2), string="expHotelDisembarkAmount")
+	expHotelDisembarkCompanyAgents = fields.Char(string="expHotelDisembarkCompanyAgents")
+	expHotelDisembarkTransferDate = fields.Date(string="expHotelDisembarkTransferDate")
 
-	expReturnTicketsAmount = fields.Float(digits=(10,2), string="")
-	expReturnTicketsCompanyAgents = fields.Char(string="")
-	expReturnTicketsTransferDate = fields.Date(string="")
+	expReturnTicketsAmount = fields.Float(digits=(10,2), string="expReturnTicketsAmount")
+	expReturnTicketsCompanyAgents = fields.Char(string="expReturnTicketsCompanyAgents")
+	expReturnTicketsTransferDate = fields.Date(string="expReturnTicketsTransferDate")
 
-	expInsuranceAmount = fields.Float(digits=(10,2), string="")
-	expInsuranceCompanyAgents = fields.Char(string="")
-	expInsuranceTransferDate = fields.Date(string="")
+	expInsuranceAmount = fields.Float(digits=(10,2), string="expInsuranceAmount")
+	expInsuranceCompanyAgents = fields.Char(string="expInsuranceCompanyAgents")
+	expInsuranceTransferDate = fields.Date(string="expInsuranceTransferDate")
 
-	expGuardsCostAmount = fields.Float(digits=(10,2), string="")
-	expGuardsCostCompanyAgents = fields.Char(string="")
-	expGuardsCostTransferDate = fields.Date(string="")
+	expGuardsCostAmount = fields.Float(digits=(10,2), string="expGuardsCostAmount")
+	expGuardsCostCompanyAgents = fields.Char(string="expGuardsCostCompanyAgents")
+	expGuardsCostTransferDate = fields.Date(string="expGuardsCostTransferDate")
 
-	expArmsRentalCostAmount = fields.Float(digits=(10,2), string="")
-	expArmsRentalCompanyAgents = fields.Char(string="")
-	expArmsRentalTransferDate = fields.Date(string="")
+	expArmsRentalCostAmount = fields.Float(digits=(10,2), string="expArmsRentalCostAmount")
+	expArmsRentalCompanyAgents = fields.Char(string="expArmsRentalCompanyAgents")
+	expArmsRentalTransferDate = fields.Date(string="expArmsRentalTransferDate")
 
-	expCommisionCostAmount = fields.Float(digits=(10,2), string="")
-	expCommisionCompanyAgents = fields.Char(string="")
-	expCommisionTransferDate = fields.Date(string="")
+	expCommisionCostAmount = fields.Float(digits=(10,2), string="expCommisionCostAmount")
+	expCommisionCompanyAgents = fields.Char(string="expCommisionCompanyAgents")
+	expCommisionTransferDate = fields.Date(string="expCommisionTransferDate")
 
 	# compute
-	expTotalExpenses = fields.Float(digits=(15,2), string="")
+	expTotalExpenses = fields.Float(digits=(15,2), string="expTotalExpenses")
 
 	# copmute
-	totalProfit = fields.Float(digits=(15,2), string="")
+	totalProfit = fields.Float(digits=(15,2), string="totalProfit")
 
 
 class Guard(models.Model):
