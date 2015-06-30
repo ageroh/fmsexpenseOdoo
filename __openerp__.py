@@ -28,6 +28,7 @@
         'views/expenses.xml',
         'views/guards.xml',
     ],
+    
     # only loaded in demonstration mode
     'demo': [
         'demo.xml',
