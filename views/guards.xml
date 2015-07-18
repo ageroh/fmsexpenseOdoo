@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
+
+
+
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="guards_tree_view">
+            <field name="name">guard.tree</field>
+            <field name="model">fmsexpensess.guard</field>
+            <field name="arch" type="xml">
+                <tree string="Expenses Tree">
+                    <field name="name"/>
+                    <field name="surname"/>
+                </tree>
+            </field>
+        </record>
+
         <!-- window action -->
         <!--
             The following tag is an action definition for a "window action",

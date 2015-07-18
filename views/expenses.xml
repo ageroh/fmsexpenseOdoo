@@ -2,11 +2,10 @@
 <openerp>
     <data>
 
+
         <template id="assets_backend" name="fmsexpensess assets" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/fmsexpensess/static/src/css/style.css"/>
-                <!-- <script type="text/javascript" src="/fmsexpensess/static/src/js/you_module_name.js">
-              </script>-->
             </xpath>
         </template>
 
@@ -38,7 +37,6 @@
                 </tree>
             </field>
         </record>
-
 
 
 
@@ -245,6 +243,8 @@
                   <!--  -->
                     </table>
                    </div>
+                    <field name="expBankAccount"/>
+
                   </sheet>
 
                 </form>

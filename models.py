@@ -112,6 +112,8 @@ class expense(models.Model):
 	expCommisionCompanyAgents = fields.Char(string="Commision Company Agents")
 	expCommisionTransferDate = fields.Date(string="Commision Transfer Date")
 
+	expBankAccount = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+
 	# compute
 	expTotalExpenses = fields.Float(digits=(15,2), string="Total Expenses", readonly=True, compute="_compute_total_expenses")
 
