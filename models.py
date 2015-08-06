@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
+from datetime import datetime
+import logging
+_logger = logging.getLogger(__name__)
 
 class expense(models.Model):
 	_name = 'fmsexpensess.expense'
 
 	#add all necessary fields
 
-	client_id = fields.Many2one('res.company', ondelete='set null', string="Client", index=True)
+	client_id = fields.Many2one('res.partner', ondelete='set null', string="Client", index=True, domain="[('is_company', '=', True), ('supplier', '=', False)]")
 
 	projectNumber = fields.Char(string="Project Number", required=True)	
 
@@ -120,6 +123,30 @@ class expense(models.Model):
 	# copmute
 	totalProfit = fields.Float(digits=(15,2), string="Total Profit", readonly=True, compute="_compute_total_profit")
 
+
+    line_ids = fields.one2many("fmsexpensess.detail", "expense_id", "Expense Lines", copy=True, readonly=True, states={"draft":[("readonly",False)]} )
+
+
+
+	def _check_date(self, cr, uid, vals, context=None):
+	    for obj in self.browse(cr, uid):
+			start_date = obj.tripStartDate
+			end_date = obj.tripEndDate
+
+
+			_logger.error("Error message FMS: %r, %r", start_date, end_date )
+			if start_date and end_date:
+				from_dt = datetime.strptime(start_date, '%d-%m-%Y')
+				to_dt = datetime.strptime(end_date, '%d-%m-%Y')
+
+			if to_dt < from_dt:
+				return False
+			return True
+
+	_constraints = [(_check_date, 'End Date must be greater than Start Date!', ['tripStartDate','tripEndDate']),]
+
+
+
 	# METHODS FOR Expense
 	@api.one
 	@api.depends('revenuesPerGaurdAmount', 'invoiceAmount', 'creditNoteAmount')
@@ -150,6 +177,15 @@ class Guard(models.Model):
 	age = fields.Integer(string="Age")
 	skills = fields.Text(string="Skills - Qualifications")
 	#guard_id = fields.Many2one("fmsexpensess.expense", ondelete="cascade", string="Expense")
+
+class ExpenseDetail(models.Model)
+	_name = "fmsexpensess.detail"
+
+	name = fileds.Char(string="Name", required=True)
+	amountPaid = fields.Float(digits=(10,2), string="Insurance Amount")
+	supplier_id = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")
+	expense_id = fields.many2one('fmsexpensess.expense', 'Expense', ondelete='cascade', select=True)
+
 
 
 # add LATER MAYBE.

@@ -16,7 +16,11 @@
             <field name="model">fmsexpensess.expense</field>
             <field name="arch" type="xml">
                 <tree string="Expenses Tree">
-                    <field name="client_id"/>
+                    <!--field name="client_id"/-->
+                    <field name="client_id" domain="[('is_company', '=', True) , ('supplier', '=', False)]" />
+                    <field name="supplier_id1" domain="[('supplier', '=', True)]" />
+                    <field name="supplier_id2" domain="[('supplier', '=', True)]" />
+
                     <field name="projectNumber"/>
 
                     <field name="tripStartDate"/>
@@ -50,7 +54,13 @@
                     <div class="o_fmsexpensess_main">
                       <group> 
                         <group>
-                          <field name="client_id"/>
+
+                          <field name="client_id" domain="[('is_company', '=', True), ('supplier', '=', False)]" />
+
+                    <field name="supplier_id1" domain="[('supplier', '=', True)]" />
+                    <field name="supplier_id2" domain="[('supplier', '=', True)]" />
+
+
                           <field name="vesselName"/>
                           <field name="guard_id_one"/>
                           <field name="guard_id_two"/>
@@ -286,4 +296,3 @@
              It is not required when it is the same module -->
     </data>
 </openerp>
-
