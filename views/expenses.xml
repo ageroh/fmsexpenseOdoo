@@ -16,10 +16,11 @@
             <field name="model">fmsexpensess.expense</field>
             <field name="arch" type="xml">
                 <tree string="Expenses Tree">
+                    <field name="client_vessel_id" />
                     <!--field name="client_id"/-->
-                    <field name="client_id" domain="[('is_company', '=', True) , ('supplier', '=', False)]" />
-                    <field name="supplier_id1" domain="[('supplier', '=', True)]" />
-                    <field name="supplier_id2" domain="[('supplier', '=', True)]" />
+                    <!-- field name="client_id" domain="[('is_company', '=', True) , ('supplier', '=', False)]" /-->
+                    <!-- Vessel -->
+                    <!--field name="supplier_id2" domain="[('supplier', '=', True)]" /-->
 
                     <field name="projectNumber"/>
 
@@ -54,24 +55,12 @@
                     <div class="o_fmsexpensess_main">
                       <group> 
                         <group>
-
-                          <field name="client_id" domain="[('is_company', '=', True), ('supplier', '=', False)]" />
-
-                    <field name="supplier_id1" domain="[('supplier', '=', True)]" />
-                    <field name="supplier_id2" domain="[('supplier', '=', True)]" />
-
-
-                          <field name="vesselName"/>
-                          <field name="guard_id_one"/>
-                          <field name="guard_id_two"/>
-                          <field name="guard_id_three"/>
-                          <field name="guard_id_forth"/>
-                        </group>
-                        <group>
-                          <field name="projectNumber" />
-                          <field name="invoiceNumber" />
-                          <field name="creditNoteNo" />
-                          <group>
+                            <field name="client_vessel_id" />
+                            <!--field name="client_id" domain="[('is_company', '=', True), ('supplier', '=', False)]" />
+                            <field name="vesselName"/-->                            
+                            <field name="projectNumber" />
+                            <field name="invoiceNumber" />
+                            <field name="creditNoteNo" />
                             <group string="Duration of Trip" colspan="2" style="padding: 0px; margin: 0px; width: 300px; font-size:13px;">
                               <field name="tripStartDate" nolabel="1"/>
                               <field name="tripEndDate" nolabel="1"/>
@@ -84,7 +73,25 @@
                               <field name="mobilizationDate" nolabel="1"/>
                               <field name="demobilizationDate" nolabel="1"/>
                             </group>
-                          </group>
+
+                        </group>
+                        <group>
+                            <group string="1st Guard" colspan="2" style="padding: 0px; margin: 0px; width: 300px; font-size:13px;" >
+                              <field name="guard_id_one" nolabel="1"/>
+                              <field name="guard_id_cost_one" nolabel="1"/>
+                            </group>
+                            <group string="2nd Guard" colspan="2" style="padding: 0px; margin: 0px; width: 300px; font-size:13px;">
+                              <field name="guard_id_two" nolabel="1" />
+                              <field name="guard_id_cost_two" nolabel="1"/>
+                            </group>
+                            <group string="3rd Guard" colspan="2" style="padding: 0px; margin: 0px; width: 300px; font-size:13px;">
+                              <field name="guard_id_three" nolabel="1" />
+                              <field name="guard_id_cost_three" nolabel="1"/>
+                            </group>
+                            <group string="4th Guard" colspan="2" style="padding: 0px; margin: 0px; width: 300px; font-size:13px;">
+                              <field name="guard_id_forth" nolabel="1"/>
+                              <field name="guard_id_cost_forth" nolabel="1"/>
+                            </group>
                         </group>
                       </group>
                     </div>
@@ -158,25 +165,29 @@
                         <th>Amount Paid</th>
                         <th>Company / Agents</th>
                         <th>Transfer Date</th>
+                        <th>Bank Account</th>
                       </tr>
                       <tr>
                         <td class="tg-031e">Depart Tickets</td>
                         <td><field name="expDepartTicketsAmount"/></td>
                         <td><field name="expDepartTicketsCompanyAgents"/></td>
                         <td><field name="expDepartTicketsTransferDate"/></td>
+                        <td><field name="expDepartTicketsBank"/></td>
                       </tr>
 
                       <tr>
                         <td class="tg-031e">Hotel Embark</td>
                         <td><field name="expHotelEmbarkAmount"/></td>
                         <td><field name="expHotelEmbarkCompanyAgents"/></td>
-                        <td><field name="expHoterEmbarkTransferDate"/></td>
+                        <td><field name="expHotelEmbarkTransferDate"/></td>
+                        <td><field name="expHotelEmbarkBank"/></td>                        
                       </tr>
                       <tr>
                         <td class="tg-031e">Embarkation</td>
                         <td><field name="expEmbarkationAmount"/></td>
                         <td><field name="expEmbarkationCompanyAgents"/></td>
                         <td><field name="expEmbarkationTransferDate"/></td>
+                        <td><field name="expEmbarkationBank"/></td>
                       </tr>
 
                       <tr>
@@ -184,6 +195,7 @@
                         <td><field name="expMobilizationAmount"/></td>
                         <td><field name="expMobilizationCompanyAgents"/></td>
                         <td><field name="expMobilizationTransferDate"/></td>
+                        <td><field name="expMobilizationBank"/></td>
                       </tr>
 
                       <tr>
@@ -191,50 +203,56 @@
                         <td><field name="expDemobilizationAmount"/></td>
                         <td><field name="expDemobilizationCompanyAgents"/></td>
                         <td><field name="expDemobilizationTransferDate"/></td>
+                        <td><field name="expDemobilizationBank"/></td>
                       </tr>
-
-
                       <tr>
                         <td class="tg-031e">Agent Disembarkation</td>
                         <td><field name="expAgentDisembarkAmount"/></td>
                         <td><field name="expAgentDisembarkCompanyAgents"/></td>
                         <td><field name="expAgentDisembarkTransferDate"/></td>
+                        <td><field name="expAgentDisembarkBank"/></td>
                       </tr>
                       <tr>
                         <td class="tg-031e">Hotel Disembarkation</td>
                         <td><field name="expHotelDisembarkAmount"/></td>
                         <td><field name="expHotelDisembarkCompanyAgents"/></td>
                         <td><field name="expHotelDisembarkTransferDate"/></td>
+                        <td><field name="expHotelDisembarkBank"/></td>
                       </tr>
                       <tr>
                         <td class="tg-031e">Return Tickets</td>
                         <td><field name="expReturnTicketsAmount"/></td>
                         <td><field name="expReturnTicketsCompanyAgents"/></td>
                         <td><field name="expReturnTicketsTransferDate"/></td>
+                        <td><field name="expReturnTicketsBank"/></td>
                       </tr>
                       <tr>
                         <td class="tg-031e">Insurance</td>
                         <td><field name="expInsuranceAmount"/></td>
                         <td><field name="expInsuranceCompanyAgents"/></td>
                         <td><field name="expInsuranceTransferDate"/></td>
+                        <td><field name="expInsuranceBank"/></td>
                       </tr>
                       <tr>
                         <td class="tg-031e">Guards Cost</td>
                         <td><field name="expGuardsCostAmount"/></td>
                         <td><field name="expGuardsCostCompanyAgents"/></td>
                         <td><field name="expGuardsCostTransferDate"/></td>
+                        <td><field name="expGuardsCostBank"/></td>                        
                       </tr>
                       <tr>
                         <td class="tg-031e">Arms Rental</td>
                         <td><field name="expArmsRentalCostAmount"/></td>
                         <td><field name="expArmsRentalCompanyAgents"/></td>
                         <td><field name="expArmsRentalTransferDate"/></td>
+                        <td><field name="expArmsRentalBank"/></td>
                       </tr>
                       <tr>
                         <td class="tg-031e">Commisions</td>
                         <td><field name="expCommisionCostAmount"/></td>
                         <td><field name="expCommisionCompanyAgents"/></td>
                         <td><field name="expCommisionTransferDate"/></td>
+                        <td><field name="expCommisionBank"/></td>
                       </tr>
                       <tr style="background-color: rgb(255, 184, 184);">
                         <td class="tg-e3zv">Total Expenses</td>
@@ -250,18 +268,12 @@
                         <td><field name="totalProfit"/></td>
                       </tr>
 
-                  <!--  -->
                     </table>
-                   </div>
-                    <field name="expBankAccount"/>
-
+                   </div>                    
                   </sheet>
-
                 </form>
             </field>
         </record>
-
-
 
 
         <!-- window action -->

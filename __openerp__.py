@@ -27,6 +27,7 @@
         'templates.xml',
         'views/expenses.xml',
         'views/guards.xml',
+        'views/vessels.xml',
     ],
     
     # only loaded in demonstration mode

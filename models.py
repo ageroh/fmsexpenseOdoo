@@ -7,14 +7,15 @@ _logger = logging.getLogger(__name__)
 
 class expense(models.Model):
 	_name = 'fmsexpensess.expense'
-
+	
 	#add all necessary fields
 
-	client_id = fields.Many2one('res.partner', ondelete='set null', string="Client", index=True, domain="[('is_company', '=', True), ('supplier', '=', False)]")
+	#client_id = fields.Many2one('res.partner', ondelete='set null', string="Client", index=True, domain="[('is_company', '=', True), ('supplier', '=', False)]", required=True)
+	client_vessel_id = fields.Many2one("fmsexpensess.vessel", ondelete="cascade", string="Client Vessel", required=True)
 
 	projectNumber = fields.Char(string="Project Number", required=True)	
 
-	vesselName = fields.Char(string="Vessel Name", required=True)
+	#vesselName = fields.Char(string="Vessel Name", required=True)
 
 	invoiceNumber = fields.Integer(string="Invoice No")
 
@@ -25,10 +26,16 @@ class expense(models.Model):
 
 	# replace gurads with relation to users!
 	#arel_id = fields.Many2one('res.users')
-	guard_id_one = fields.Many2one("fmsexpensess.guard", ondelete="cascade", string="Guard Name")
-	guard_id_two = fields.Many2one("fmsexpensess.guard", ondelete="cascade", string="Guard Name")
+	guard_id_one = fields.Many2one("fmsexpensess.guard", ondelete="cascade", string="Guard Name", required=True)
+	guard_id_two = fields.Many2one("fmsexpensess.guard", ondelete="cascade", string="Guard Name")#, attrs="{'invisible':[('guard_id_cost_two', '=', '0.00')]}")
 	guard_id_three = fields.Many2one("fmsexpensess.guard", ondelete="cascade", string="Guard Name")
 	guard_id_forth = fields.Many2one("fmsexpensess.guard", ondelete="cascade", string="Guard Name")
+
+	guard_id_cost_one = fields.Float(digits=(10,2), string="Guard Salary", required=True)
+	guard_id_cost_two = fields.Float(digits=(10,2), string="Guard Salary")
+	guard_id_cost_three = fields.Float(digits=(10,2), string="Guard Salary")
+	guard_id_cost_forth = fields.Float(digits=(10,2), string="Guard Salary")
+
 
 	# Replace later with new Model
 	placeEmbark = fields.Selection([('18n', '18 NORTH'), ('suez', 'SUEZ'), ('19N', '19 NORTH'), ('galle', 'GALLE')
@@ -65,57 +72,66 @@ class expense(models.Model):
 	# compute
 	totalRevenuesAmount = fields.Float(digits=(10,2), string="Total Revenues Amount", readonly=True, compute="_compute_total_revenues")
 
-
 	#Expenses 
 	expDepartTicketsAmount  = fields.Float(digits=(10,2), string="Depart Tickets Amount")
-	expDepartTicketsCompanyAgents = fields.Char(string="Depart Tickets Company Agents")
 	expDepartTicketsTransferDate = fields.Date(string="Depart Tickets Transfer Date")
+	expDepartTicketsBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expDepartTicketsCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expHotelEmbarkAmount = fields.Float(digits=(10,2), string="Hotel Embark Amount")
-	expHotelEmbarkCompanyAgents = fields.Char(string="Hotel Embark Company Agents")
-	expHoterEmbarkTransferDate = fields.Date(string="Hotel Embark Transfer Date")
+	expHotelEmbarkTransferDate = fields.Date(string="Hotel Embark Transfer Date")
+	expHotelEmbarkBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expHotelEmbarkCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expEmbarkationAmount = fields.Float(digits=(10,2), string="Embarkation Amount")
-	expEmbarkationCompanyAgents = fields.Char(string="Embarkation Company Agents")
 	expEmbarkationTransferDate = fields.Date(string="Embarkation Transfer Date")
+	expEmbarkationBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expEmbarkationCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expMobilizationAmount = fields.Float(digits=(10,2), string="Mobilization Amount")
-	expMobilizationCompanyAgents = fields.Char(string="Mobilization Company Agents")
 	expMobilizationTransferDate = fields.Date(string="Mobilization Transfer Date")
+	expMobilizationBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expMobilizationCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expDemobilizationAmount = fields.Float(digits=(10,2), string="Demobilization Amount")
-	expDemobilizationCompanyAgents = fields.Char(string="Demobilization Company Agents")
 	expDemobilizationTransferDate = fields.Date(string="Demobilization Transfer Date")
+	expDemobilizationBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expDemobilizationCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expAgentDisembarkAmount = fields.Float(digits=(10,2), string="Agent Disembark Amount")
-	expAgentDisembarkCompanyAgents = fields.Char(string="Agent Disembark Company Agents")
 	expAgentDisembarkTransferDate = fields.Date(string="Agent Disembark Transfer Date")
+	expAgentDisembarkBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expAgentDisembarkCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expHotelDisembarkAmount = fields.Float(digits=(10,2), string="Hotel Disembark Amount")
-	expHotelDisembarkCompanyAgents = fields.Char(string="Hotel Disembark Company Agents")
 	expHotelDisembarkTransferDate = fields.Date(string="Hotel Disembark Transfer Date")
+	expHotelDisembarkBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expHotelDisembarkCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expReturnTicketsAmount = fields.Float(digits=(10,2), string="Return Tickets Amount")
-	expReturnTicketsCompanyAgents = fields.Char(string="Return Tickets Company Agents")
 	expReturnTicketsTransferDate = fields.Date(string="Return Tickets Transfer Date")
+	expReturnTicketsBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expReturnTicketsCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expInsuranceAmount = fields.Float(digits=(10,2), string="Insurance Amount")
-	expInsuranceCompanyAgents = fields.Char(string="Insurance Company Agents")
 	expInsuranceTransferDate = fields.Date(string="Insurance Transfer Date")
+	expInsuranceBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expInsuranceCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expGuardsCostAmount = fields.Float(digits=(10,2), string="Guards Cost Amount")
-	expGuardsCostCompanyAgents = fields.Char(string="Guards Cost Company Agents")
 	expGuardsCostTransferDate = fields.Date(string="Guards Cost Transfer Date")
+	expGuardsCostBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expGuardsCostCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expArmsRentalCostAmount = fields.Float(digits=(10,2), string="Arms Rental Cost Amount")
-	expArmsRentalCompanyAgents = fields.Char(string="Arms Rental Company Agents")
 	expArmsRentalTransferDate = fields.Date(string="Arms Rental Transfer Date")
+	expArmsRentalBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expArmsRentalCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expCommisionCostAmount = fields.Float(digits=(10,2), string="Commision Cost Amount")
-	expCommisionCompanyAgents = fields.Char(string="Commision Company Agents")
 	expCommisionTransferDate = fields.Date(string="Commision Transfer Date")
-
-	expBankAccount = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expCommisionBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	expCommisionCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	# compute
 	expTotalExpenses = fields.Float(digits=(15,2), string="Total Expenses", readonly=True, compute="_compute_total_expenses")
@@ -123,8 +139,12 @@ class expense(models.Model):
 	# copmute
 	totalProfit = fields.Float(digits=(15,2), string="Total Profit", readonly=True, compute="_compute_total_profit")
 
+#	_sql_constraints = [
+#		('name_unique',
+#		'UNIQUE(name)',
+#		"The course title must be unique"),
+#	]
 
-    line_ids = fields.one2many("fmsexpensess.detail", "expense_id", "Expense Lines", copy=True, readonly=True, states={"draft":[("readonly",False)]} )
 
 
 
@@ -143,7 +163,7 @@ class expense(models.Model):
 				return False
 			return True
 
-	_constraints = [(_check_date, 'End Date must be greater than Start Date!', ['tripStartDate','tripEndDate']),]
+	#_constraints = [(_check_date, 'End Date must be greater than Start Date!', ['tripStartDate','tripEndDate']),]
 
 
 
@@ -166,8 +186,12 @@ class expense(models.Model):
 		if self.totalRevenuesAmount or self.expTotalExpenses:
 			self.totalProfit = self.totalRevenuesAmount - self.expTotalExpenses
 
-	
-
+#	def create(self, cr, uid, vals, context=None):
+#		context = context or {}
+#		created_id = super(expense, self).create(cr, uid, vals, context)
+#		values = (vals.get('line_ids', [])) + [(0, 0, {'expense_id': created_id})]
+#		self.write(cr, uid, [created_id], {'line_ids': values}, context=context)
+#		return created_id
 
 class Guard(models.Model):
 	_name = "fmsexpensess.guard"
@@ -176,17 +200,41 @@ class Guard(models.Model):
 	surname = fields.Char(string="Surname", required=True)
 	age = fields.Integer(string="Age")
 	skills = fields.Text(string="Skills - Qualifications")
+	salary = fields.Float(digits=(10,2), string="Salary")
 	#guard_id = fields.Many2one("fmsexpensess.expense", ondelete="cascade", string="Expense")
 
-class ExpenseDetail(models.Model)
-	_name = "fmsexpensess.detail"
+	def name_get(self,cr,uid,ids,context=None):
+		result = {}
+		for itemList in self.browse(cr,uid,ids,context=context):
+			result[itemList.id] = itemList.surname + " " + itemList.name  
 
-	name = fileds.Char(string="Name", required=True)
-	amountPaid = fields.Float(digits=(10,2), string="Insurance Amount")
-	supplier_id = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")
-	expense_id = fields.many2one('fmsexpensess.expense', 'Expense', ondelete='cascade', select=True)
+		return result.items()
 
 
+class Vessel(models.Model):
+	_name = "fmsexpensess.vessel"
+
+	name = fields.Char(string="Vessel Name", required=True)
+	client_id = fields.Many2one('res.partner', ondelete='set null', string="Maritime Company", index=True, domain="[('is_company', '=', True), ('supplier', '=', False)]", required=True)
+
+	def name_get(self,cr,uid,ids,context=None):
+		result = {}
+		for itemList in self.browse(cr,uid,ids,context=context):
+			result[itemList.id] = itemList.client_id.name + " / " + itemList.name  
+
+		return result.items()
+
+
+#class ExpenseDetail(models.Model):
+#	_name = 'fmsexpensess.detail'
+ 	
+#	name = fields.Char(string="Name", required=True)
+#	supplier_id = fields.Many2one("res.partner", ondelete="set null", string="Company/Agents", index=True, domain="[('supplier', '=', True)]")
+#	expense_id = fields.Many2one("fmsexpensess.expense", string="Expense Detail", ondelete="cascade", select=True)
+#	amountPaid = fields.Float(digits=(10,2), string="Insurance Amount")
+	
+	
+	
 
 # add LATER MAYBE.
 #placeEmbark_id = fields.Many2one("fmsexpensess.place", ondelete="cascade", string="Embarkation Place")

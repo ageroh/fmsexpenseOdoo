@@ -3,13 +3,13 @@
     <data>
 
         <!-- override the automatically generated list view for courses -->
-        <record model="ir.ui.view" id="guards_tree_view">
-            <field name="name">guard.tree</field>
-            <field name="model">fmsexpensess.guard</field>
+        <record model="ir.ui.view" id="vessels_tree_view">
+            <field name="name">vessel.tree</field>
+            <field name="model">fmsexpensess.vessel</field>
             <field name="arch" type="xml">
-                <tree string="Expenses Tree">
+                <tree string="Vessels Tree">
                     <field name="name"/>
-                    <field name="surname"/>
+                    <field name="client_id"/>
                 </tree>
             </field>
         </record>
@@ -19,20 +19,20 @@
             The following tag is an action definition for a "window action",
             that is an action opening a view or a set of views
         -->
-        <record model="ir.actions.act_window" id="guard_list_action">
-            <field name="name">Guards</field>
-            <field name="res_model">fmsexpensess.guard</field>
+        <record model="ir.actions.act_window" id="vessel_list_action">
+            <field name="name">Vessels</field>
+            <field name="res_model">fmsexpensess.vessel</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Create the first Guard
+                <p class="oe_view_nocontent_create">Create the first Vessel and Client
                 </p>
             </field>
         </record>
 
       
-      <menuitem id="guards_menu" name="Guard" parent="openacademy_menu"
-                  action="guard_list_action"/>
+      <menuitem id="vessels_menu" name="Vessel" parent="openacademy_menu"
+                  action="vessel_list_action"/>
 
     </data>
 </openerp>
