@@ -104,8 +104,8 @@
                         <tr>
                           <th>Transaction Details</th>
                           <th>Amount Paid</th>
-                          <th>Company / Agents</th>
-                          <th>Transfer Date</th>
+                          <!--th>Company / Agents</th>
+                          <th>Transfer Date</th-->
                         </tr>
                         <tr>
                           <td>
@@ -114,12 +114,12 @@
                           <td>
                             <field name="revenuesPerGaurdAmount"/>
                           </td>
-                          <td>
+                          <!--td>
                             <field name="revenuesPerGaurdCompanyAgents" nolabel="1"/>
                           </td>
                           <td>
                             <field name="revenuesPerGaurdTransferDate" nolabel="1"/>
-                          </td>
+                          </td-->
                         </tr>
                           <td>
                             Invoice Amount
@@ -127,12 +127,12 @@
                           <td>
                             <field name="invoiceAmount"/>
                           </td>
-                          <td>
+                          <!--td>
                             <field name="invoiceCompanyAgents" nolabel="1"/>
                           </td>
                           <td>
                             <field name="invoiceTrasferDate" nolabel="1"/>
-                          </td>
+                          </td-->
                         <tr>
                         </tr>
                           <td>
@@ -141,12 +141,12 @@
                           <td>
                             <field name="creditNoteAmount" />
                           </td>
-                          <td>
+                          <!--td>
                             <field name="creditNoteCompanyAgents" nolabel="1"/>
                           </td>
                           <td>
                             <field name="creditNoteTransferDate" nolabel="1"/>
-                          </td>
+                          </td-->
                         <tr>
                         </tr>
                         <tr>
@@ -276,6 +276,53 @@
         </record>
 
 
+
+        <record id="view_expense_line_filter_1" model="ir.ui.view">
+          <field name="name">fmsexpensess.filter</field>
+          <field name="model">fmsexpensess.expense</field>
+          <field name="arch" type="xml">
+            <search string="Search Expenses Custom 1">
+              <!--field name="client_vessel_id" /-->
+              <!--field name="guard_id_one" />
+              <field name="guard_id_two" />
+              <field name="guard_id_three" />
+              <field name="guard_id_forth" /-->
+              <!--field name="guard_id_one" string="Guard Name" filter_domain="['|', ('guard_id_one', 'ilike', self), ('guard_id_two', 'ilike', self)]"/-->
+              <group string="Extended Filters..." expand="0">
+                <field name="guard_id_one"/>
+                <field name="guard_id_two"/>
+                <field name="guard_id_three"/>
+                <field name="guard_id_forth"/>                              
+              </group>
+              <!--
+              <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Bank Transaction"/>
+              <field name="val_date"/>
+              <filter name="debit" string="Debit" domain="[('amount','&gt;',0)]" icon="terp-folder-green" help="Debit Transactions."/>
+              <filter name="credit" string="Credit" domain="[('amount','&lt;',0)]" icon="terp-folder-orange" help="Credit Transactions."/>
+              <separator/>
+              <filter name="draft" string="Draft" domain="[('state','=','draft')]" icon="terp-document-new" help="Draft Statement Lines."/>
+              <filter name="confirm" string="Confirmed" domain="[('state','=','confirm')]" icon="terp-camera_test" help="Confirmed Statement Lines."/>
+              <field name="journal_id"/>
+              <field name="statement_id"/>
+              <separator/>
+              <field name="amount"/>
+              <field name="globalisation_id" string="Glob. Id"/>
+              <field name="globalisation_amount" string="Glob. Amount"/>
+              <group string="Extended Filters..." expand="0">
+                <field name="partner_id"/>
+                <field name="note"/>
+              </group>
+              <newline/>
+              <group string="Group By..." expand="1">
+                <filter string="Journal" context="{'group_by':'journal_id'}" icon="terp-folder-green"/>
+                <filter string="Statement" context="{'group_by':'statement_id'}" icon="terp-folder-orange"/>
+              </group>
+            -->
+            </search>
+          </field>
+        </record>
+
+
         <!-- window action -->
         <!--
             The following tag is an action definition for a "window action",
@@ -290,6 +337,7 @@
                 <p class="oe_view_nocontent_create">Create the first Expense
                 </p>
             </field>
+            <field name="search_view_id" ref="view_expense_line_filter_1"/>
         </record>
 
         <!-- top level menu: no parent -->
