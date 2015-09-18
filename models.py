@@ -175,10 +175,10 @@ class expense(models.Model):
 			self.totalRevenuesAmount = self.revenuesPerGaurdAmount + self.invoiceAmount + self.creditNoteAmount
 
 	@api.one
-	@api.depends('expDepartTicketsAmount','expHotelEmbarkAmount','expEmbarkationAmount','expMobilizationAmount','expDemobilizationAmount','expAgentDisembarkAmount','expHotelDisembarkAmount','expReturnTicketsAmount','expInsuranceAmount','expGuardsCostAmount','expArmsRentalCostAmount','expCommisionCostAmount')
+	@api.depends('expDepartTicketsAmount','expHotelEmbarkAmount','expEmbarkationAmount','expMobilizationAmount','expDemobilizationAmount','expAgentDisembarkAmount','expHotelDisembarkAmount','expReturnTicketsAmount','expInsuranceAmount','expGuardsCostAmount','expArmsRentalCostAmount','expCommisionCostAmount', 'guard_id_cost_one', 'guard_id_cost_two', 'guard_id_cost_three', 'guard_id_cost_forth')
 	def _compute_total_expenses(self):
-		if self.expDepartTicketsAmount or self.expHotelEmbarkAmount or self.expEmbarkationAmount or self.expMobilizationAmount or self.expDemobilizationAmount or self.expAgentDisembarkAmount or self.expHotelDisembarkAmount or self.expReturnTicketsAmount or self.expInsuranceAmount or self.expGuardsCostAmount or self.expArmsRentalCostAmount or self.expCommisionCostAmount:
-			self.expTotalExpenses = self.expDepartTicketsAmount + self.expHotelEmbarkAmount + self.expEmbarkationAmount + self.expMobilizationAmount + self.expDemobilizationAmount + self.expAgentDisembarkAmount + self.expHotelDisembarkAmount + self.expReturnTicketsAmount + self.expInsuranceAmount + self.expGuardsCostAmount + self.expArmsRentalCostAmount + self.expCommisionCostAmount
+		if self.expDepartTicketsAmount or self.expHotelEmbarkAmount or self.expEmbarkationAmount or self.expMobilizationAmount or self.expDemobilizationAmount or self.expAgentDisembarkAmount or self.expHotelDisembarkAmount or self.expReturnTicketsAmount or self.expInsuranceAmount or self.expGuardsCostAmount or self.expArmsRentalCostAmount or self.expCommisionCostAmount or self.guard_id_cost_one or self.guard_id_cost_two or self.guard_id_cost_three or self.guard_id_cost_forth:
+			self.expTotalExpenses = self.expDepartTicketsAmount + self.expHotelEmbarkAmount + self.expEmbarkationAmount + self.expMobilizationAmount + self.expDemobilizationAmount + self.expAgentDisembarkAmount + self.expHotelDisembarkAmount + self.expReturnTicketsAmount + self.expInsuranceAmount + self.expGuardsCostAmount + self.expArmsRentalCostAmount + self.expCommisionCostAmount + self.guard_id_cost_three + self.guard_id_cost_forth + self.guard_id_cost_one + self.guard_id_cost_two 
 
 	@api.one
 	@api.depends('totalRevenuesAmount', 'expTotalExpenses')
