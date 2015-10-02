@@ -16,12 +16,10 @@
             <field name="model">fmsexpensess.expense</field>
             <field name="arch" type="xml">
                 <tree string="Expenses Tree">
-                    <field name="client_vessel_id" />
+                    <!--field name="client_vessel_id" /-->
                     <!--field name="client_id"/-->
-                    <!-- field name="client_id" domain="[('is_company', '=', True) , ('supplier', '=', False)]" /-->
-                    <!-- Vessel -->
-                    <!--field name="supplier_id2" domain="[('supplier', '=', True)]" /-->
-
+                    <field name="client_id" domain="[('is_company', '=', True) , ('supplier', '=', False)]" />
+                    <field name="vesselName"/>
                     <field name="projectNumber"/>
 
                     <field name="tripStartDate"/>
@@ -55,9 +53,9 @@
                     <div class="o_fmsexpensess_main">
                       <group> 
                         <group>
-                            <field name="client_vessel_id" />
-                            <!--field name="client_id" domain="[('is_company', '=', True), ('supplier', '=', False)]" />
-                            <field name="vesselName"/-->                            
+                            <!--field name="client_vessel_id" /-->
+                            <field name="client_id" domain="[('is_company', '=', True), ('supplier', '=', False)]" />
+                            <field name="vesselName"/>                            
                             <field name="projectNumber" />
                             <field name="invoiceNumber" />
                             <field name="creditNoteNo" />
@@ -234,13 +232,6 @@
                         <td><field name="expInsuranceBank"/></td>
                       </tr>
                       <tr>
-                        <td class="tg-031e">Guards Cost</td>
-                        <td><field name="expGuardsCostAmount"/></td>
-                        <td><field name="expGuardsCostCompanyAgents"/></td>
-                        <td><field name="expGuardsCostTransferDate"/></td>
-                        <td><field name="expGuardsCostBank"/></td>                        
-                      </tr>
-                      <tr>
                         <td class="tg-031e">Arms Rental</td>
                         <td><field name="expArmsRentalCostAmount"/></td>
                         <td><field name="expArmsRentalCompanyAgents"/></td>
@@ -253,6 +244,13 @@
                         <td><field name="expCommisionCompanyAgents"/></td>
                         <td><field name="expCommisionTransferDate"/></td>
                         <td><field name="expCommisionBank"/></td>
+                      </tr>
+                      <tr>
+                        <td class="tg-031e">Total Guards Cost</td>
+                        <td><field name="expGuardsCostAmount"/></td>
+                        <td><!--field name="expGuardsCostCompanyAgents"/--></td>
+                        <td><!--field name="expGuardsCostTransferDate"/--></td>
+                        <td><!--field name="expGuardsCostBank"/--></td>
                       </tr>
                       <tr style="background-color: rgb(255, 184, 184);">
                         <td class="tg-e3zv">Total Expenses</td>

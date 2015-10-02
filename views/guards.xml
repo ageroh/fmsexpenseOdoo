@@ -8,8 +8,8 @@
             <field name="model">fmsexpensess.guard</field>
             <field name="arch" type="xml">
                 <tree string="Expenses Tree">
-                    <field name="name"/>
                     <field name="surname"/>
+		    <field name="name"/>
                 </tree>
             </field>
         </record>

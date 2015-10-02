@@ -31,8 +31,8 @@
         </record>
 
       
-      <menuitem id="vessels_menu" name="Vessel" parent="openacademy_menu"
-                  action="vessel_list_action"/>
+      <!--menuitem id="vessels_menu" name="Vessel" parent="openacademy_menu"
+                  action="vessel_list_action"/-->
 
     </data>
 </openerp>

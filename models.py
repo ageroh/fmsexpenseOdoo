@@ -9,19 +9,14 @@ class expense(models.Model):
 	_name = 'fmsexpensess.expense'
 	
 	#add all necessary fields
-
-	#client_id = fields.Many2one('res.partner', ondelete='set null', string="Client", index=True, domain="[('is_company', '=', True), ('supplier', '=', False)]", required=True)
-	client_vessel_id = fields.Many2one("fmsexpensess.vessel", ondelete="cascade", string="Client Vessel", required=True)
+	client_id = fields.Many2one('res.partner', ondelete='set null', string="Client", index=True, domain="[('is_company', '=', True), ('supplier', '=', False)]", required=True)
+	#client_vessel_id = fields.Many2one("fmsexpensess.vessel", ondelete="cascade", string="Client Vessel", required=True)
 
 	projectNumber = fields.Char(string="Project Number", required=True)	
-
-	#vesselName = fields.Char(string="Vessel Name", required=True)
-
-	invoiceNumber = fields.Integer(string="Invoice No")
-
+	vesselName = fields.Char(string="Vessel Name", required=True)
+	invoiceNumber = fields.Char(string="Invoice No")
 	# ?
 	guardTL = fields.Boolean(string="Guald Team Leader")
-
 	creditNoteNo = fields.Char(string="Credit Note No")
 
 	# replace gurads with relation to users!
@@ -56,18 +51,18 @@ class expense(models.Model):
 
 	#REVENUES per GuardCon $		
 	revenuesPerGaurdAmount = fields.Float(digits=(10,2), string="Revenues Per Guard") 
-	revenuesPerGaurdCompanyAgents = fields.Char(string="RevPerGuard Company Agents")
-	revenuesPerGaurdTransferDate = fields.Date(string="RevPerGuard Transfer Date")
+	#revenuesPerGaurdCompanyAgents = fields.Char(string="RevPerGuard Company Agents")
+	#revenuesPerGaurdTransferDate = fields.Date(string="RevPerGuard Transfer Date")
 
 	#Invoice Amount
 	invoiceAmount = fields.Float(digits=(10,2), string="Invoice Amount")
-	invoiceCompanyAgents = fields.Char(string="Invoice Company Agents")
-	invoiceTrasferDate = fields.Date(string="Invoice Transfer Date")
+	#invoiceCompanyAgents = fields.Char(string="Invoice Company Agents")
+	#invoiceTrasferDate = fields.Date(string="Invoice Transfer Date")
 
 	#Credit Note Amount
 	creditNoteAmount = fields.Float(digits=(10,2), string="Credit Note Amount")
-	creditNoteCompanyAgents = fields.Char(string="Credit Note Company Agents")
-	creditNoteTransferDate = fields.Date(string="Credit Note Transfer Date")
+	#creditNoteCompanyAgents = fields.Char(string="Credit Note Company Agents")
+	#creditNoteTransferDate = fields.Date(string="Credit Note Transfer Date")
 
 	# compute
 	totalRevenuesAmount = fields.Float(digits=(10,2), string="Total Revenues Amount", readonly=True, compute="_compute_total_revenues")
@@ -118,10 +113,10 @@ class expense(models.Model):
 	expInsuranceBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
 	expInsuranceCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
-	expGuardsCostAmount = fields.Float(digits=(10,2), string="Guards Cost Amount")
-	expGuardsCostTransferDate = fields.Date(string="Guards Cost Transfer Date")
-	expGuardsCostBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
-	expGuardsCostCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
+	expGuardsCostAmount = fields.Float(digits=(10,2), string="Guards Cost Amount", readonly=True, compute="_compute_total_guards_cost" )
+	#expGuardsCostTransferDate = fields.Date(string="Guards Cost Transfer Date")
+	#expGuardsCostBank = fields.Many2one("res.partner.bank", ondelete="cascade", string="Bank Account")
+	#expGuardsCostCompanyAgents = fields.Many2one('res.partner', ondelete='set null', string="Company/Agents", index=True, domain="[('supplier', '=', True)]")	
 
 	expArmsRentalCostAmount = fields.Float(digits=(10,2), string="Arms Rental Cost Amount")
 	expArmsRentalTransferDate = fields.Date(string="Arms Rental Transfer Date")
@@ -169,22 +164,29 @@ class expense(models.Model):
 
 	# METHODS FOR Expense
 	@api.one
-	@api.depends('revenuesPerGaurdAmount', 'invoiceAmount', 'creditNoteAmount')
+	@api.depends('invoiceAmount', 'creditNoteAmount')
 	def _compute_total_revenues(self):
-		if self.revenuesPerGaurdAmount or self.invoiceAmount or self.creditNoteAmount:
-			self.totalRevenuesAmount = self.revenuesPerGaurdAmount + self.invoiceAmount + self.creditNoteAmount
+		if self.invoiceAmount or self.creditNoteAmount:
+			self.totalRevenuesAmount = self.invoiceAmount - self.creditNoteAmount
 
 	@api.one
-	@api.depends('expDepartTicketsAmount','expHotelEmbarkAmount','expEmbarkationAmount','expMobilizationAmount','expDemobilizationAmount','expAgentDisembarkAmount','expHotelDisembarkAmount','expReturnTicketsAmount','expInsuranceAmount','expGuardsCostAmount','expArmsRentalCostAmount','expCommisionCostAmount', 'guard_id_cost_one', 'guard_id_cost_two', 'guard_id_cost_three', 'guard_id_cost_forth')
+	@api.depends('expDepartTicketsAmount','expHotelEmbarkAmount','expEmbarkationAmount','expMobilizationAmount','expDemobilizationAmount','expAgentDisembarkAmount','expHotelDisembarkAmount','expReturnTicketsAmount','expInsuranceAmount', 'expArmsRentalCostAmount','expCommisionCostAmount', 'guard_id_cost_one', 'guard_id_cost_two', 'guard_id_cost_three', 'guard_id_cost_forth')
 	def _compute_total_expenses(self):
-		if self.expDepartTicketsAmount or self.expHotelEmbarkAmount or self.expEmbarkationAmount or self.expMobilizationAmount or self.expDemobilizationAmount or self.expAgentDisembarkAmount or self.expHotelDisembarkAmount or self.expReturnTicketsAmount or self.expInsuranceAmount or self.expGuardsCostAmount or self.expArmsRentalCostAmount or self.expCommisionCostAmount or self.guard_id_cost_one or self.guard_id_cost_two or self.guard_id_cost_three or self.guard_id_cost_forth:
-			self.expTotalExpenses = self.expDepartTicketsAmount + self.expHotelEmbarkAmount + self.expEmbarkationAmount + self.expMobilizationAmount + self.expDemobilizationAmount + self.expAgentDisembarkAmount + self.expHotelDisembarkAmount + self.expReturnTicketsAmount + self.expInsuranceAmount + self.expGuardsCostAmount + self.expArmsRentalCostAmount + self.expCommisionCostAmount + self.guard_id_cost_three + self.guard_id_cost_forth + self.guard_id_cost_one + self.guard_id_cost_two 
+		if self.expDepartTicketsAmount or self.expHotelEmbarkAmount or self.expEmbarkationAmount or self.expMobilizationAmount or self.expDemobilizationAmount or self.expAgentDisembarkAmount or self.expHotelDisembarkAmount or self.expReturnTicketsAmount or self.expInsuranceAmount or self.expArmsRentalCostAmount or self.expCommisionCostAmount or self.guard_id_cost_one or self.guard_id_cost_two or self.guard_id_cost_three or self.guard_id_cost_forth:
+			self.expTotalExpenses = self.expDepartTicketsAmount + self.expHotelEmbarkAmount + self.expEmbarkationAmount + self.expMobilizationAmount + self.expDemobilizationAmount + self.expAgentDisembarkAmount + self.expHotelDisembarkAmount + self.expReturnTicketsAmount + self.expInsuranceAmount + self.expArmsRentalCostAmount + self.expCommisionCostAmount + self.guard_id_cost_three + self.guard_id_cost_forth + self.guard_id_cost_one + self.guard_id_cost_two 
 
 	@api.one
 	@api.depends('totalRevenuesAmount', 'expTotalExpenses')
 	def _compute_total_profit(self):
 		if self.totalRevenuesAmount or self.expTotalExpenses:
 			self.totalProfit = self.totalRevenuesAmount - self.expTotalExpenses
+
+	@api.one
+	@api.depends('guard_id_cost_one', 'guard_id_cost_two', 'guard_id_cost_three', 'guard_id_cost_forth')
+	def _compute_total_guards_cost(self):
+		if self.guard_id_cost_one or self.guard_id_cost_two or self.guard_id_cost_three or self.guard_id_cost_forth:
+			self.expGuardsCostAmount = self.guard_id_cost_one + self.guard_id_cost_two + self.guard_id_cost_three + self.guard_id_cost_forth
+
 
 #	def create(self, cr, uid, vals, context=None):
 #		context = context or {}
@@ -195,6 +197,7 @@ class expense(models.Model):
 
 class Guard(models.Model):
 	_name = "fmsexpensess.guard"
+	_order = "surname, name"
 
 	name = fields.Char(string="Name", required=True)
 	surname = fields.Char(string="Surname", required=True)
@@ -209,6 +212,12 @@ class Guard(models.Model):
 			result[itemList.id] = itemList.surname + " " + itemList.name  
 
 		return result.items()
+
+	_sql_constraints = [
+		('surname_uniq', 'unique("surname", "name")', 'Surnmane name must be unique')
+	]
+
+
 
 
 class Vessel(models.Model):
@@ -242,3 +251,4 @@ class Vessel(models.Model):
 #class Place(models.Model)
 #	_name = "fmsexpensess.place"
 #	place = fields.Char(string="Port/Place", required=True)
+
