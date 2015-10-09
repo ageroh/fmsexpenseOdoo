@@ -102,8 +102,6 @@
                         <tr>
                           <th>Transaction Details</th>
                           <th>Amount Paid</th>
-                          <!--th>Company / Agents</th>
-                          <th>Transfer Date</th-->
                         </tr>
                         <tr>
                           <td>
@@ -112,12 +110,6 @@
                           <td>
                             <field name="revenuesPerGaurdAmount"/>
                           </td>
-                          <!--td>
-                            <field name="revenuesPerGaurdCompanyAgents" nolabel="1"/>
-                          </td>
-                          <td>
-                            <field name="revenuesPerGaurdTransferDate" nolabel="1"/>
-                          </td-->
                         </tr>
                           <td>
                             Invoice Amount
@@ -125,12 +117,6 @@
                           <td>
                             <field name="invoiceAmount"/>
                           </td>
-                          <!--td>
-                            <field name="invoiceCompanyAgents" nolabel="1"/>
-                          </td>
-                          <td>
-                            <field name="invoiceTrasferDate" nolabel="1"/>
-                          </td-->
                         <tr>
                         </tr>
                           <td>
@@ -139,12 +125,6 @@
                           <td>
                             <field name="creditNoteAmount" />
                           </td>
-                          <!--td>
-                            <field name="creditNoteCompanyAgents" nolabel="1"/>
-                          </td>
-                          <td>
-                            <field name="creditNoteTransferDate" nolabel="1"/>
-                          </td-->
                         <tr>
                         </tr>
                         <tr>
@@ -280,52 +260,16 @@
           <field name="model">fmsexpensess.expense</field>
           <field name="arch" type="xml">
             <search string="Search Expenses Custom 1">
-              <!--field name="client_vessel_id" /-->
-              <!--field name="guard_id_one" />
-              <field name="guard_id_two" />
-              <field name="guard_id_three" />
-              <field name="guard_id_forth" /-->
-              <!--field name="guard_id_one" string="Guard Name" filter_domain="['|', ('guard_id_one', 'ilike', self), ('guard_id_two', 'ilike', self)]"/-->
-              <group string="Extended Filters..." expand="0">
-                <field name="guard_id_one"/>
-                <field name="guard_id_two"/>
-                <field name="guard_id_three"/>
-                <field name="guard_id_forth"/>                              
-              </group>
-              <!--
-              <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Bank Transaction"/>
-              <field name="val_date"/>
-              <filter name="debit" string="Debit" domain="[('amount','&gt;',0)]" icon="terp-folder-green" help="Debit Transactions."/>
-              <filter name="credit" string="Credit" domain="[('amount','&lt;',0)]" icon="terp-folder-orange" help="Credit Transactions."/>
-              <separator/>
-              <filter name="draft" string="Draft" domain="[('state','=','draft')]" icon="terp-document-new" help="Draft Statement Lines."/>
-              <filter name="confirm" string="Confirmed" domain="[('state','=','confirm')]" icon="terp-camera_test" help="Confirmed Statement Lines."/>
-              <field name="journal_id"/>
-              <field name="statement_id"/>
-              <separator/>
-              <field name="amount"/>
-              <field name="globalisation_id" string="Glob. Id"/>
-              <field name="globalisation_amount" string="Glob. Amount"/>
-              <group string="Extended Filters..." expand="0">
-                <field name="partner_id"/>
-                <field name="note"/>
-              </group>
-              <newline/>
-              <group string="Group By..." expand="1">
-                <filter string="Journal" context="{'group_by':'journal_id'}" icon="terp-folder-green"/>
-                <filter string="Statement" context="{'group_by':'statement_id'}" icon="terp-folder-orange"/>
-              </group>
-            -->
+	      	<group string="Group By">
+        	   <filter name="group_by_clientID" string="Client"
+                      	context="{'group_by': 'client_id'}"/>
+	      	</group>
             </search>
           </field>
         </record>
 
 
         <!-- window action -->
-        <!--
-            The following tag is an action definition for a "window action",
-            that is an action opening a view or a set of views
-        -->
         <record model="ir.actions.act_window" id="course_list_action">
             <field name="name">Expenses</field>
             <field name="res_model">fmsexpensess.expense</field>
@@ -340,17 +284,9 @@
 
         <!-- top level menu: no parent -->
         <menuitem id="main_openacademy_menu" name="Expenses"/>
-        <!-- A first level in the left side menu is needed
-             before using action= attribute -->
         <menuitem id="openacademy_menu" name="Expenses"
                   parent="main_openacademy_menu"/>
-        <!-- the following menuitem should appear *after*
-             its parent openacademy_menu and *after* its
-             action course_list_action -->
         <menuitem id="courses_menu" name="Expense" parent="openacademy_menu"
                   action="course_list_action"/>
-        <!-- Full id location:
-             action="openacademy.course_list_action"
-             It is not required when it is the same module -->
     </data>
 </openerp>

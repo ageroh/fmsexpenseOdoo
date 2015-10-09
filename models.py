@@ -188,6 +188,17 @@ class expense(models.Model):
 			self.expGuardsCostAmount = self.guard_id_cost_one + self.guard_id_cost_two + self.guard_id_cost_three + self.guard_id_cost_forth
 
 
+	#def read_group(self, cr, uid, domain, fields, groupby, offset=0, limit=None, context=None, orderby=False, lazy=True):
+	#	res = super('fmsexpensess.expense', self).read_group(cr, uid, domain, fields, groupby, offset, limit=limit, context=context, orderby=orderby, lazy=lazy)
+	#	if 'totalProfit' in fields:
+	#		pending_value = 0.0
+	#		for line in res:
+	#			pending_value += line.totalProfit
+	#		line['totalProfit'] = pending_value
+	#	# add more "if" for more columns
+	#	return res
+
+
 #	def create(self, cr, uid, vals, context=None):
 #		context = context or {}
 #		created_id = super(expense, self).create(cr, uid, vals, context)
